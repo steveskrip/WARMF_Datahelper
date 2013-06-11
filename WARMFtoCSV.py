@@ -27,8 +27,10 @@ def parse_warmf_file(filename):
     f = open(os.path.join(dir,filename),'r')
     f_lines = f.readlines()
     f.close()
-    outhead = f_lines[:2]
-    alldata_list.append([outhead])
+    outhead1 = f_lines[0].rstrip('\n')
+    outhead2 = f_lines[1].rstrip('\n')
+    alldata_list.append([outhead1])
+    alldata_list.append([outhead2])
     outid = f_lines[2][:13]
     alldata_list.append([outid])
     alldata_list.append(['========DO NOT EDIT ABOVE THIS LINE========='])
@@ -37,6 +39,7 @@ def parse_warmf_file(filename):
     #Get headers and column count
     print "it started"
     headline_list = []
+    headline_list.append("")
     pointer = 13
     for i, col in enumerate(headline):
         if i <= pointer:

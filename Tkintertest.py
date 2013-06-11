@@ -1,20 +1,38 @@
-from Tkinter import Tk, Frame, BOTH
+from Tkinter import *
+import ttk
 
-class Example(Frame):
-    def __init__(self, parent):
-        Frame.__init__(self, parent, background = "white")
-        self.parent = parent
-        self.initUI()
+def calculate(*args):
+    try:
+        value = float(feet.get())
+        meters.set((0.3048 * value * 10000.0 + 0.5)/10000.0)
+    except ValueError:
+        pass
 
-    def iniUI(self):
-        self.parent.title("Simple")
-        self.pack(fill=BOTH,expand=1)
+root = Tk()
+root.title("Feet to Meters")
 
-def main():
-    root = Tk()
-    root.geometry("250x150+300+300")
-    app = Example(root)
-    root.mainloop()
+mainframe = ttk.Frame(root, padding="3 3 12 12")
+mainframe.grid(column=0,row=0,sticky=(N,W,E,S))
+mainframe.columnconfigure(0, weight=1)
+mainframe.rowconfigure(0,weight=1)
 
-if __name__ == '__main__':
-    main()
+feet = StringVar()
+meters = StringVar()
+
+feet_entry = ttk.Entry(mainframe, width=7, textvariable=feet)
+feet_entry.grid(column=2, row=1, sticky=(W, E))
+
+ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))
+ttk.Button(mainframe, text="Calculate", command=calculate).grid(column=3, row=3, sticky=W)
+
+ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
+ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
+ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
+
+for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
+
+feet_entry.focus()
+root.bind('<Return>', calculate)
+
+root.mainloop()
+

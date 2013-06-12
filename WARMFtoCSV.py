@@ -1,6 +1,31 @@
 import csv
 import os
 from datetime import datetime
+import argparse
+import sys
+
+aparser = argparse.ArgumentParser()
+aparser.add_argument("[WARMF .orc file]", help = "filename of the WARMF .orc file")
+args = aparser.parse_args()
+#print sys.argv
+filename = sys.argv[1]
+#print filename
+outfile = filename.split('.')[0]+".csv" 
+
+
+print "\n\n\n"
+print "Summary:\n\nYou would like to convert {0} to a CSV file.".format(filename)
+print "This will create {0} in this directory. Be sure it doesn't already exist".format(outfile)
+print "Make sure the file you selected ends with .orc and it exists in this folder"
+print "\nBe sure to save the edited .csv file as a .csv file in Microsoft Excel."
+s = raw_input('\nWould you like to proceed? [Y?]: ')
+if s.lower() == 'y':
+    pass
+else:
+    sys.exit()
+
+
+
 """
 Command line:
     getting data or putting data?
@@ -11,8 +36,7 @@ Command line:
 MISSING = '-999'
 dir = os.path.dirname(__file__)
 #os.path.join(dir,nfile)
-filename = 'ntdrain.orc'
-outfile = 'ntdrain.csv'
+#filename = 'ntdrain.orc'
 
 def parseargs():
     """
@@ -37,7 +61,7 @@ def parse_warmf_file(filename):
     headline = f_lines[2]
 
     #Get headers and column count
-    print "it started"
+    #print "it started"
     headline_list = []
     headline_list.append("")
     pointer = 13
@@ -76,7 +100,7 @@ def writeWARMFtoCSV(datalist):
     for row in datalist:
         csvwriter.writerow(row)
     f.close()
-    print "it's done?"
+    print "Completed."
 
 def main():
     alldata_list = parse_warmf_file(filename)

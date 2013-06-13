@@ -83,7 +83,7 @@ def parse_warmf_file(filename):
         datarow_list.append(ndate)
         pointer = 13
         #Assumes time = 0000
-        for col in headline_list:
+        for col in headline_list[:-1]:
             start = pointer
             end = pointer+8
             datarow_list.append(row[start:end].strip())
